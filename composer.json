@@ -1,0 +1,20 @@
+{
+    "name": "sashagmn/payment",
+    "description": "Accepting payments for Loong/Blood and Soul game projects on the Laravel framework",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Sashagmn\\Payment\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sashagm",
+            "email": "example@example.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require-dev": {
+        "orchestra/testbench": "^7.9"
+    }
+}

@@ -8,7 +8,18 @@ class PaymentController extends Controller
 {
     public function index()
     {
-        return view('payment::index');
+        if (config('payment.isService') == true) {
+            return view('payment::index');
+        } else abort(403);
+       
+    }
 
+    public function success()
+    {
+        return view('payment::success');
+    }
+    public function fail()
+    {
+        return view('payment::fail');
     }
 }

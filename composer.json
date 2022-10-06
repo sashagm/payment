@@ -30,5 +30,12 @@
         "post-autoload-dump": [
             "@php ./vendor/bin/testbench package:discover --ansi"
         ]
-    }   
+    },
+    "extra": {
+        "laravel": {
+          "providers": [
+            "Sashagm\\Payment\\Providers\\PaymentServiceProvider"
+          ]
+        }
+      }   
 }

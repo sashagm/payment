@@ -1,6 +1,6 @@
 {
     "name": "sashagmn/payment",
-    "description": "Accepting payments for Loong/Blood and Soul game projects on the Laravel framework",
+    "description": "Accepting payments for Loong Online/Blood and Soul game projects on the Laravel framework",
     "license": "MIT",
     "autoload": {
         "psr-4": {
@@ -19,6 +19,9 @@
         }
     ],
     "minimum-stability": "stable",
+    "require": {
+        
+    },
     "require-dev": {
         "orchestra/testbench": "^7.9",
         "phpunit/phpunit": "^9.5"

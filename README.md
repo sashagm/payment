@@ -1,4 +1,4 @@
-## Laravel auth from Loong and Blood and Soul
+## Accepting payments for Loong Online/Blood and Soul game projects on the Laravel framework
 
 #### Установка
 

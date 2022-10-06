@@ -1,5 +1,5 @@
 {
-    "name": "sashagmn/payment",
+    "name": "sashagm/payment",
     "description": "Accepting payments for Loong Online/Blood and Soul game projects on the Laravel framework",
     "license": "MIT",
     "autoload": {

@@ -6,5 +6,8 @@ use Illuminate\Http\Request;
 
 class PaymentWebmoneyController extends Controller
 {
-    //
+    public function webmoneyForm(Request $request)
+    {
+
+    }
 }

@@ -8,6 +8,6 @@ class PaymentPayeerController extends Controller
 {
     public function payeerForm(Request $request)
     {
-
+        dd($request);
     }
 }

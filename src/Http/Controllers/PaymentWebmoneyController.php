@@ -8,6 +8,6 @@ class PaymentWebmoneyController extends Controller
 {
     public function webmoneyForm(Request $request)
     {
-
+        dd($request);
     }
 }

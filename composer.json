@@ -9,7 +9,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Sashagmn\\Payment\\Tests\\": "tests/"
+            "Sashagm\\Payment\\Tests\\": "tests/"
         }
     },
     "authors": [

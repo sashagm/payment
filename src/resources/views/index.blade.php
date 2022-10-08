@@ -38,6 +38,7 @@
 
             
 <div class="col-md-6">
+  <h2> Пополнить через Freekassa </h2>
   <form class="mt-4" action="/payment/freekassa_form" method="POST" >
     @csrf
     <div class="form-group">
@@ -47,7 +48,7 @@
     </div>
     <div class="form-group">
       <label for="sum">Сумма</label>
-      <input  class="form-control" id="text" name="sum" placeholder="Сумма" class="main_input" type="number" value="25" min="25">
+      <input  class="form-control" id="text" name="sum" placeholder="Сумма" class="main_input" type="number" value="25">
     </div>
   
   <?php if(Auth::check()){ 

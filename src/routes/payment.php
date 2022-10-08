@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+Route::group(['middleware' => ['web']], function () {
+   
 /* Главная */
 Route::get('/payment', [\Sashagm\Payment\Http\Controllers\PaymentController::class, 'index'])->name('paymentIndex');
 
@@ -14,3 +17,5 @@ Route::post('/payment/payeer_form', [\Sashagm\Payment\Http\Controllers\PaymentPa
 Route::post('/payment/webmoney_form', [\Sashagm\Payment\Http\Controllers\PaymentWebmoneyController::class, 'webmoneyForm'])->name('webmoneyForm');
 
 
+
+});

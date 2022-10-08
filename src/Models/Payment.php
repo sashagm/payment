@@ -11,6 +11,7 @@ class Payment extends Model
 
     protected $fillable = [
       'user_id',
+      'desc',
       'sum',
       'sum_bonus',
       'provider',

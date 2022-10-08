@@ -16,6 +16,9 @@ Route::post('/payment/freekassa_form', [\Sashagm\Payment\Http\Controllers\Paymen
 Route::post('/payment/payeer_form', [\Sashagm\Payment\Http\Controllers\PaymentPayeerController::class, 'payeerForm'])->name('payeerForm');
 Route::post('/payment/webmoney_form', [\Sashagm\Payment\Http\Controllers\PaymentWebmoneyController::class, 'webmoneyForm'])->name('webmoneyForm');
 
+/* Получение ответа */
+Route::get('/payment/freekassa', [\Sashagm\Payment\Http\Controllers\PaymentFreekassaController::class, 'freekassa'])->name('freekassa');
+
 
 
 });

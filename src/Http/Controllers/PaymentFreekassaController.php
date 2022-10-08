@@ -64,10 +64,10 @@ class PaymentFreekassaController extends Controller
         $sigShop = md5($merchant_id.":".$sum.":".$secret_word.":".$desc);
         // Проверки
         if (!in_array(self::getIP(), config('payment.Freekassa_serverIP'))) {
-            die("Error");
+            abort(403);
         }
         if ($sigShop != $request->SIGN) {
-            die('wrong sign');
+            abort(403);
         }
         // Ищем пользователя 
         $user = User::where('name', $accName)->first();

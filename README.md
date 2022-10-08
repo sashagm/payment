@@ -18,7 +18,7 @@
 | Успех         | [http://domain.com/payment/?pay=ok]    | GET           |
 | Ошибка        | [http://domain.com/?pay=error]         | GET           |
 
-- Настроить файл конфиг ** config/payment.php **
-- Добавить конcтанты в файл ** .env ** 
+- Настроить файл конфиг **config/payment.php**
+- Добавить конcтанты в файл **.env** 
     * FREEKASSA_ID
     * FREEKASSA_SECRET

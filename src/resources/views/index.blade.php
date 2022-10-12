@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Laravel</title>
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -21,6 +21,8 @@
         </style>
     </head>
     <body class="antialiased">
+      
+<main role="main" class="container">
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
@@ -35,10 +37,21 @@
                     @endauth
                 </div>
             @endif
-
+         
+          
+         
             
 <div class="col-md-6">
-  <h2> Пополнить через Freekassa </h2>
+  @if (count($errors) > 0)
+  <div class="alert alert-danger">
+    <ul>
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+@endif
+<h3> Пополнить через Freekassa </h3>
   <form class="mt-4" action="/payment/freekassa_form" method="POST" >
     @csrf
     <div class="form-group">
@@ -48,7 +61,7 @@
     </div>
     <div class="form-group">
       <label for="sum">Сумма</label>
-      <input  class="form-control" id="text" name="sum" placeholder="Сумма" class="main_input" type="number" value="25">
+      <input  class="form-control" id="text" name="sum" placeholder="Сумма" class="main_input" type="number" value="25" >
     </div>
   
   <?php if(Auth::check()){ 
@@ -79,7 +92,7 @@
   );
   
   </script>
-  
+
    <div class="col-md-4">Вы получите<br></div>
    <div class="col-md-5" id="result"> <i class="las la-gem"></i></div> 
    <div class="col-md-3"><br></div> 
@@ -93,16 +106,40 @@
     <button type="submit" class="btn btn-slide btn-slide-info mt-4" class="dl_btn">Пополнить с Freekassa</button> 
     
   </form></div>
+  <script>
+    $('#text').bind('input', function(){
+    
+    if ($(this).val() >= 500 && $(this).val() <= 999){ $('#result').html($(this).val()*1.05 + ' <i class="las la-gem"></i> (+5%)'); }
+    else if ($(this).val() >= 1000 && $(this).val() <= 1999){ $('#result').html( $(this).val()*1.10 + ' <i class="las la-gem"></i> (+10%)'); }
+    else if ($(this).val() >= 2000 && $(this).val() <= 3499){ $('#result').html($(this).val()*1.15 + ' <i class="las la-gem"></i> (+15%)');  }
+    else if ($(this).val() >= 3500 && $(this).val() <= 4999){ $('#result').html($(this).val()*1.20 + ' <i class="las la-gem"></i> (+20%)');  }
+    else if ($(this).val() >= 5000 && $(this).val() <= 7499){ $('#result').html($(this).val()*1.25 + ' <i class="las la-gem"></i> (+25%)');  }
+    else if ($(this).val() >= 7500 && $(this).val() <= 9999){ $('#result').html($(this).val()*1.30 + ' <i class="las la-gem"></i> (+30%)');  }
+    else if ($(this).val() >= 10000 && $(this).val() <= 11999){ $('#result').html($(this).val()*1.35 + ' <i class="las la-gem"></i> (+35%)');  }
+    else if ($(this).val() >= 12500 && $(this).val() <= 14999){ $('#result').html($(this).val()*1.40 + ' <i class="las la-gem"></i> (+40%)');  }
+    else if ($(this).val() >= 15000 && $(this).val() <= 19999){ $('#result').html($(this).val()*1.50 + ' <i class="las la-gem"></i> (+50%)');  }
+    else if ($(this).val() >= 20000 && $(this).val() <= 199999){ $('#result').html($(this).val()*1.50 + ' <i class="las la-gem"></i> (+50%)');  }
+    else { $('#result').html($(this).val() + ' <i class="las la-gem"></i>');  }
+    
+    
+    });
+    
+    
+    </script>
   <div class="col-md-6"></div>
   
   
+</main><!-- /.container -->
   
-  
-  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
 
         </div>
     </body>
 </html>
+
+
 
 
 

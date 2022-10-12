@@ -4,6 +4,9 @@ namespace Sashagm\Payment\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Sashagm\Payment\Console\Commands\PaymentCommand;
+use Sashagm\Payment\Console\Commands\PaymentInfoCommand;
+use Sashagm\Payment\Console\Commands\PaymentCreateCommand;
+use Sashagm\Payment\Console\Commands\PaymentUpdateCommand;
 
 class PaymentServiceProvider extends ServiceProvider
 {
@@ -39,6 +42,9 @@ class PaymentServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands([
                 PaymentCommand::class,
+                PaymentCreateCommand::class,
+                PaymentUpdateCommand::class,
+                PaymentInfoCommand::class,
             ]);
         }
     }

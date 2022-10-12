@@ -20,7 +20,9 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "^7.3|^8.0"
+        "php": "^7.3|^8.0",
+        "illuminate/support": "^9.34",
+        "illuminate/database": "^9.34"
         
     },
     "require-dev": {

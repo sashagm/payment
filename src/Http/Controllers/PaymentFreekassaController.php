@@ -42,7 +42,6 @@ class PaymentFreekassaController extends Controller
             'user_id'   =>  $user->id,
             'desc'      =>  $order_id,
             'sum'       =>  $order_amount,
-            'sum_bonus' =>  null,
             'provider'  =>  1,
             'status'    =>  0
         ]);

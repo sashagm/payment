@@ -13,11 +13,18 @@ return [
     "Freekassa_orderId"     =>  time(),
     'Freekassa_serverIP'    =>  array('127.0.0.1','168.119.157.136', '168.119.60.227', '138.201.88.124', '178.154.197.79'),
 
-    "PAYEER_active"       => true,
+    "PAYEER_active"         => true,
     "PAYEER_serverURL"      =>  "https://payeer.com/merchant/",
     "PAYEER_orderId"        =>  time(),
     "PAYEER_shopId"         =>  env('PAYEER_ID', NULL),
     "PAYEER_secretWord"     =>  env('PAYEER_SECRET', NULL),
     "PAYEER_currency"       =>  'RUB',
     "PAYEER_serverIP"       =>  array('185.71.65.92', '185.71.65.189', '149.202.17.210'),
+
+    "Webmoney_active"       => false,
+    "Webmoney_serverURL"    =>  "https://merchant.webmoney.ru/lmi/payment_utf.asp",
+    "Webmoney_orderId"      =>  time(),
+    "Webmoney_merchantId"       =>  env('WEBMONEY_ID', NULL),
+    "Webmoney_secretWord"     =>  env('WEBMONEY_SECRET', NULL),
+    "Webmoney_secretWord20"     =>  env('WEBMONEY_SECRET20', NULL),
 ];

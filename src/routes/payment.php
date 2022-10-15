@@ -23,6 +23,7 @@ Route::post('/payment/webmoney_form', [PaymentWebmoneyController::class, 'webmon
 /* Получение ответа */
 Route::post('/payment/freekassa', [PaymentFreekassaController::class, 'freekassa'])->name('freekassa');
 Route::post('/payment/payeer', [PaymentPayeerController::class, 'payeer'])->name('payeer');
+Route::post('/payment/webmoney', [PaymentWebmoneyController::class, 'webmoney'])->name('webmoney');
 
 
 

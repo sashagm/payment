@@ -60,6 +60,7 @@ class PaymentFreekassaController extends Controller
 	    $sum = $request->AMOUNT;
 	    $accName = $request->us_AccountName;
         $desc = $request->MERCHANT_ORDER_ID;
+        $initid = $request->initid;
         $sigShop = md5($merchant_id.":".$sum.":".$secret_word.":".$desc);
         // Проверки
         if (!in_array(self::getIP(), config('payment.Freekassa_serverIP'))) {
@@ -107,6 +108,7 @@ class PaymentFreekassaController extends Controller
             $user->bonus = $bal + $sum;
             $user->save();
             $payment = Payment::where('desc', $desc)->first();
+            $payment->initid = $initid;
             $payment->sum_bonus = $sum;
             $payment->status = 1; 
             $payment->save();

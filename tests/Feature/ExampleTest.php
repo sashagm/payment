@@ -1,20 +1,22 @@
 <?php
 
-namespace Sashagm\Payment\Tests\Tests\Feature;
+namespace Sashagm\Payment\Tests\Feature;
 
 
-class ExampleTest extends \Orchestra\Testbench\TestCase
+use Sashagm\Payment\Tests\TestCase;
+use Illuminate\Support\Facades\Route;
+
+class WaitTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_page()
-    {   
-        $response = $this->get('/');
-
-        ray($response);
-        //$this->assertTrue(true);
-    }
+/** @test */
+	public function test_location_waits(): void
+	{
+		Route::get('/payment', function() {
+			return response('<a href="/b">Go to B</a>', headers: ['Content-Type' => 'text/html']);
+		});
+		
+		
+		
+		
+	}
 }

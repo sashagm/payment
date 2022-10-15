@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Sashagm\Payment\Http\Controllers\PaymentController;
 use Sashagm\Payment\Http\Controllers\PaymentPayeerController;
+use Sashagm\Payment\Http\Controllers\PaymentWebmoneyController;
+use Sashagm\Payment\Http\Controllers\PaymentFreekassaController;
 
 Route::group(['middleware' => ['web']], function () {
    

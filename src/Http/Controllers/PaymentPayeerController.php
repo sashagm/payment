@@ -12,6 +12,9 @@ class PaymentPayeerController extends Controller
     public function payeerForm(Request $request)
     {
         // Валидация
+        if (config('payment.PAYEER_active') != "true") {
+            abort(403, 'Данный способ временно отключён!');
+        }
         $messages = [
             'name.required'     => 'Вы не указали логин.',
             'name.exists'       => 'Указанный логин не найден.',

@@ -51,61 +51,146 @@
     </ul>
   </div>
 @endif
-<h3> Пополнить через Freekassa </h3>
-  <form class="mt-4" action="/payment/freekassa_form" method="POST" >
-    @csrf
-    <div class="form-group">
-      <input name="action" value="fk_go" class="main_input" type="hidden">
-      <label for="exampleInputEmail1">Логин</label>
-      <input  class="form-control"  name="name" placeholder="Логин" class="main_input" type="text"  value=""> 
-    </div>
-    <div class="form-group">
-      <label for="sum">Сумма</label>
-      <input  class="form-control" id="text" name="sum" placeholder="Сумма" class="main_input" type="number" value="25" >
-    </div>
-  
-  <?php if(Auth::check()){ 
-  echo '
-    <div class="form-group">
-    <label for="checkbox">Выбрать аккаунт</label><br>  
-  <input type="checkbox" name="checkbox" value="" item_cat="'. Auth::check()->name .'"> Мой аккаунт
-    </div><br>';
-  } ?>
-  
-  
-  <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
-  <script>
-  $(document).on('click', 'input[name="checkbox"]', function(){
-    $('input[name="account"]').val(
-      $('input[name="checkbox"]:checked')
-      .map(function(){
-        return this.getAttribute('item_cat')
-  
-      })
-  
-      .get()
-    );
-  
-  }
-  
-  
-  );
-  
-  </script>
 
-   <div class="col-md-4">Вы получите<br></div>
-   <div class="col-md-5" id="result"> <i class="las la-gem"></i></div> 
-   <div class="col-md-3"><br></div> 
-   
-  <br>
-  
+<div class="row">
+  <div class="col-3">
+    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Freekassa</a>
+      <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Payeer</a>
 
-  
-  
-  
-    <button type="submit" class="btn btn-slide btn-slide-info mt-4" class="dl_btn">Пополнить с Freekassa</button> 
-    
-  </form></div>
+    </div>
+  </div>
+  <div class="col-9">
+    <div class="tab-content" id="v-pills-tabContent">
+      <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+        
+        <h3> Пополнить через Freekassa </h3>
+        <form class="mt-4" action="/payment/freekassa_form" method="POST" >
+          @csrf
+          <div class="form-group">
+            <input name="action" value="fk_go" class="main_input" type="hidden">
+            <label for="exampleInputEmail1">Логин</label>
+            <input  class="form-control"  name="name" placeholder="Логин" class="main_input" type="text"  value=""> 
+          </div>
+          <div class="form-group">
+            <label for="sum">Сумма</label>
+            <input  class="form-control" id="text" name="sum" placeholder="Сумма" class="main_input" type="number" value="25" >
+          </div>
+        
+        <?php if(Auth::check()){ 
+        echo '
+          <div class="form-group">
+          <label for="checkbox">Выбрать аккаунт</label><br>  
+        <input type="checkbox" name="checkbox" value="" item_cat="'. Auth::check()->name .'"> Мой аккаунт
+          </div><br>';
+        } ?>
+        
+        
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+        <script>
+        $(document).on('click', 'input[name="checkbox"]', function(){
+          $('input[name="account"]').val(
+            $('input[name="checkbox"]:checked')
+            .map(function(){
+              return this.getAttribute('item_cat')
+        
+            })
+        
+            .get()
+          );
+        
+        }
+        
+        
+        );
+        
+        </script>
+      
+         <div class="col-md-4">Вы получите<br></div>
+         <div class="col-md-5" id="result"> <i class="las la-gem"></i></div> 
+         <div class="col-md-3"><br></div> 
+         
+        <br>
+        
+      
+        
+        
+        
+          <button type="submit" class="btn btn-slide btn-slide-info mt-4" class="dl_btn">Пополнить с Freekassa</button> 
+          
+        </form>
+
+
+
+      </div>
+      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+        <h3> Пополнить через Payeer </h3>
+        <form class="mt-4" action="/payment/payeer_form" method="POST" >
+          @csrf
+          <div class="form-group">
+            <input name="action" value="fk_go" class="main_input" type="hidden">
+            <label for="exampleInputEmail1">Логин</label>
+            <input  class="form-control"  name="name" placeholder="Логин" class="main_input" type="text"  value=""> 
+          </div>
+          <div class="form-group">
+            <label for="sum">Сумма</label>
+            <input  class="form-control" id="text1" name="sum" placeholder="Сумма" class="main_input" type="number" value="25" >
+          </div>
+        
+        <?php if(Auth::check()){ 
+        echo '
+          <div class="form-group">
+          <label for="checkbox">Выбрать аккаунт</label><br>  
+        <input type="checkbox" name="checkbox" value="" item_cat="'. Auth::check()->name .'"> Мой аккаунт
+          </div><br>';
+        } ?>
+        
+        
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+        <script>
+        $(document).on('click', 'input[name="checkbox"]', function(){
+          $('input[name="account"]').val(
+            $('input[name="checkbox"]:checked')
+            .map(function(){
+              return this.getAttribute('item_cat')
+        
+            })
+        
+            .get()
+          );
+        
+        }
+        
+        
+        );
+        
+        </script>
+      
+         <div class="col-md-4">Вы получите<br></div>
+         <div class="col-md-5" id="result1"> <i class="las la-gem"></i></div> 
+         <div class="col-md-3"><br></div> 
+         
+        <br>
+        
+      
+        
+        
+        
+          <button type="submit" class="btn btn-slide btn-slide-info mt-4" class="dl_btn">Пополнить с Payeer</button> 
+          
+        </form> 
+
+      </div>
+      <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+      <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
+    </div>
+  </div>
+</div>
+
+
+
+
+</div>
   <script>
     $('#text').bind('input', function(){
     
@@ -126,6 +211,26 @@
     
     
     </script>
+  <script>
+    $('#text1').bind('input', function(){
+    
+    if ($(this).val() >= 500 && $(this).val() <= 999){ $('#result1').html($(this).val()*1.05 + ' <i class="las la-gem"></i> (+5%)'); }
+    else if ($(this).val() >= 1000 && $(this).val() <= 1999){ $('#result1').html( $(this).val()*1.10 + ' <i class="las la-gem"></i> (+10%)'); }
+    else if ($(this).val() >= 2000 && $(this).val() <= 3499){ $('#result1').html($(this).val()*1.15 + ' <i class="las la-gem"></i> (+15%)');  }
+    else if ($(this).val() >= 3500 && $(this).val() <= 4999){ $('#result1').html($(this).val()*1.20 + ' <i class="las la-gem"></i> (+20%)');  }
+    else if ($(this).val() >= 5000 && $(this).val() <= 7499){ $('#result1').html($(this).val()*1.25 + ' <i class="las la-gem"></i> (+25%)');  }
+    else if ($(this).val() >= 7500 && $(this).val() <= 9999){ $('#result1').html($(this).val()*1.30 + ' <i class="las la-gem"></i> (+30%)');  }
+    else if ($(this).val() >= 10000 && $(this).val() <= 11999){ $('#result1').html($(this).val()*1.35 + ' <i class="las la-gem"></i> (+35%)');  }
+    else if ($(this).val() >= 12500 && $(this).val() <= 14999){ $('#result1').html($(this).val()*1.40 + ' <i class="las la-gem"></i> (+40%)');  }
+    else if ($(this).val() >= 15000 && $(this).val() <= 19999){ $('#result1').html($(this).val()*1.50 + ' <i class="las la-gem"></i> (+50%)');  }
+    else if ($(this).val() >= 20000 && $(this).val() <= 199999){ $('#result1').html($(this).val()*1.50 + ' <i class="las la-gem"></i> (+50%)');  }
+    else { $('#result1').html($(this).val() + ' <i class="las la-gem"></i>');  }
+    
+    
+    });
+    
+    
+    </script>    
   <div class="col-md-6"></div>
   
   
@@ -138,6 +243,7 @@
         </div>
     </body>
 </html>
+
 
 
 

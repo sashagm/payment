@@ -12,6 +12,9 @@ class PaymentFreekassaController extends Controller
     public function freekassaForm(Request $request)
     {
         // Валидация
+        if (config('payment.Freekassa_active') != "true") {
+            abort(403, 'Данный способ временно отключён!');
+        }
         $messages = [
             'name.required'     => 'Вы не указали логин.',
             'name.exists'       => 'Указанный логин не найден.',
@@ -26,6 +29,7 @@ class PaymentFreekassaController extends Controller
         ], $messages);
         // Получить проверенные данные...
         $validated = $validator->validated();
+        
         // Конфиги и подписание хэша
         $serverURL = config('payment.Freekassa_serverURL');
         $merchant_id = config('payment.Freekassa_merchantId');

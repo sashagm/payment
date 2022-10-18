@@ -14,6 +14,7 @@
 
 - [freekassa](https://merchant.freekassa.ru/)
 - [payeer](https://payeer.com/)
+- [webmoney](https://merchant.web.money/)
 
 #### Настройки для Freekassa
 
@@ -24,8 +25,8 @@
 | Название      | URL                                    | Метод         |
 | ------------- | -------------------------------------- | ------------- |
 | Обработчик    | [http://domain.com/payment/freekassa]  | POST          |
-| Успех         | [http://domain.com/payment/?pay=ok]    | GET           |
-| Ошибка        | [http://domain.com/?pay=error]         | GET           |
+| Успех         | [http://domain.com/payment/success]    | GET           |
+| Ошибка        | [http://domain.com/payment/error]      | GET           |
 
 - Настроить файл конфиг **config/payment.php**
 - Добавить конcтанты в файл **.env** 
@@ -41,10 +42,27 @@
 | Название      | URL                                    | Метод         |
 | ------------- | -------------------------------------- | ------------- |
 | Обработчик    | [http://domain.com/payment/payeer]     | POST          |
-| Успех         | [http://domain.com/payment/?pay=ok]    | GET           |
-| Ошибка        | [http://domain.com/?pay=error]         | GET           |
+| Успех         | [http://domain.com/payment/success]    | GET           |
+| Ошибка        | [http://domain.com/payment/error]      | GET           |
 
 - Настроить файл конфиг **config/payment.php**
 - Добавить конcтанты в файл **.env** 
     * PAYEER_ID
     * PAYEER_SECRET
+
+#### Настройки для Webmoney
+
+- На сайте [webmoney](https://merchant.web.money/) необходимо создать наш мерчант. 
+Подключаем домен и проходим модерацию. 
+- URL заполняем:
+
+| Название      | URL                                    | Метод         |
+| ------------- | -------------------------------------- | ------------- |
+| Обработчик    | [http://domain.com/payment/webmoney]   | POST          |
+| Успех         | [http://domain.com/payment/success]    | GET           |
+| Ошибка        | [http://domain.com/payment/error]      | GET           |
+
+- Настроить файл конфиг **config/payment.php**
+- Добавить конcтанты в файл **.env** 
+    * WEBMONEY_ID
+    * WEBMONEY_SECRET

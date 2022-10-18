@@ -2,37 +2,24 @@
 
 namespace Sashagm\Payment\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Sashagm\Payment\Models\Payment;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Sashagm\Payment\Models\Payment;
+use Sashagm\Payment\Actions\CheckBonus;
+use Sashagm\Payment\Http\Requests\PaymentRequest;
 
 class PaymentWebmoneyController extends Controller
 {
-    public function webmoneyForm(Request $request)
+    public function webmoneyForm(PaymentRequest $request)
     {
         // Валидация
         if (config('payment.Webmoney_active') != "true") {
             abort(403, 'Данный способ временно отключён!');
         }
-        $messages = [
-            'name.required'     => 'Вы не указали логин.',
-            'name.exists'       => 'Указанный логин не найден.',
-            'name.string'       => 'Поле логин должен быть строкой.',
-            'sum.required'      => 'Вы не указали сумму.',
-            'sum.numeric'       => 'Поле сумма должно быть число.',
-            'sum.min'           => 'Поле сумма должно быть больше ' . config('payment.minSum'),
-        ];
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|exists:users|max:255',
-            'sum' => 'required|numeric|min:'. config('payment.minSum'),
-        ], $messages);
         /**
          * Конвертация суммы из RUB->USD выставляем счёт в долларах 
          */
         $charger = self::charger($request->sum);
-        // Получить проверенные данные...
-        $validated = $validator->validated();
         $order_AccountName = $request->name;
         $order_amount = $request->sum;
         $serverURL = config('payment.Webmoney_serverURL');
@@ -61,19 +48,41 @@ class PaymentWebmoneyController extends Controller
         return redirect('http://0pi.ru/post.php?url=https://merchant.webmoney.ru/lmi/payment.asp?at=authtype_8[POST]'.http_build_query($arGetParams));
         }
 
-        public function webmoney(Request $request)
+        public function webmoney(CheckBonus $check,Request $request)
         {
-            //TODO: Доработать
-            dd($request);
+            if ($request->LMI_PREREQUEST == 1){
+                if ($request->LMI_PAYEER_PURSE == config('payment.Webmoney_merchantId')){ echo "YES"; }
+                else {
+                   $key = $request->LMI_PAYEE_PURSE.
+                    $request->LMI_PAYMENT_AMOUNT.
+                    $request->LMI_PAYMENT_NO.
+                    $request->LMI_MODE.
+                    $request->LMI_SYS_INVS_NO.
+                    $request->LMI_SYS_TRANS_NO.
+                    $request->LMI_SYS_TRANS_DATE.
+                    config('payment.Webmoney_secretWord').
+                    $request->LMI_PAYER_PURSE.
+                    $request->LMI_PAYER_WM;
+                    if (strtoupper(hash('sha256', $key)) != $request->LMI_HASH){ abort(403); }
+                    // Ищем заявку и пользователя 
+                    $payment = Payment::where('desc', $request->LMI_PAYMENT_NO)->first();
+                    $user = User::where('name', $payment->user_id)->first();
+                    $bal = $user->bonus;
+                    $sum = $payment->sum;
+                    // Добавляем бонус если имеется xD
+                    if ($user){
+                    $check->getBonus($sum);
+                    $user->bonus = $bal + $sum;
+                    $user->save();
+                    $payment->initid = $request->LMI_SYS_TRANS_NO;
+                    $payment->sum_bonus = $sum;
+                    $payment->status = 1; 
+                    $payment->save();
+                    }
 
-        }
+                }
+            }
 
-        public function percent_rate($number, $percent) 
-        {
-            // Подсчёт бонуса 
-            $number_percent = $number / 100 * $percent;
-            return $number + $number_percent;
-            
         }
 
         public function charger($cost)

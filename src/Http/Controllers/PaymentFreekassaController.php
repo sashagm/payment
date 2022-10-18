@@ -2,34 +2,21 @@
 
 namespace Sashagm\Payment\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Sashagm\Payment\Models\Payment;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Sashagm\Payment\Models\Payment;
+use Sashagm\Payment\Actions\CheckBonus;
+use Illuminate\Support\Facades\Validator;
+use Sashagm\Payment\Http\Requests\PaymentRequest;
 
 class PaymentFreekassaController extends Controller
 {
-    public function freekassaForm(Request $request)
+    public function freekassaForm(PaymentRequest $request)
     {
         // Валидация
         if (config('payment.Freekassa_active') != "true") {
             abort(403, 'Данный способ временно отключён!');
         }
-        $messages = [
-            'name.required'     => 'Вы не указали логин.',
-            'name.exists'       => 'Указанный логин не найден.',
-            'name.string'       => 'Поле логин должен быть строкой.',
-            'sum.required'      => 'Вы не указали сумму.',
-            'sum.numeric'       => 'Поле сумма должно быть число.',
-            'sum.min'           => 'Поле сумма должно быть больше ' . config('payment.Freekassa_minSum'),
-        ];
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|exists:users|max:255',
-            'sum' => 'required|numeric|min:'. config('payment.Freekassa_minSum'),
-        ], $messages);
-        // Получить проверенные данные...
-        $validated = $validator->validated();
-        
         // Конфиги и подписание хэша
         $serverURL = config('payment.Freekassa_serverURL');
         $merchant_id = config('payment.Freekassa_merchantId');
@@ -55,7 +42,7 @@ class PaymentFreekassaController extends Controller
         return redirect($urlTest);
     }
 
-    public function freekassa(Request $request)
+    public function freekassa(CheckBonus $check, Request $request)
     {
         // Получаем реквест с фрикассы
         $merchant_id = config('payment.Freekassa_merchantId');
@@ -78,36 +65,7 @@ class PaymentFreekassaController extends Controller
         $bal = $user->bonus;
         // Добавляем бонус если имеется xD
         if ($user){
-            if($sum > 499 AND $sum < 1000 ){
-                $sum = self::percent_rate($sum, 5); //от 500 +5%
-            }
-            elseif($sum > 999 AND $sum < 2000 ){
-                $sum = self::percent_rate($sum, 10); //от 1к +10%
-            }
-            elseif($sum > 1999 AND $sum < 3500 ){
-                $sum = self::percent_rate($sum, 15); //от 2к +15%
-            }
-            elseif($sum > 3499 AND $sum < 5000 ){
-                $sum = self::percent_rate($sum, 20); //от 2к +20%
-            }
-            elseif($sum > 4999 AND $sum < 7500 ){
-                $sum = self::percent_rate($sum, 25); //от 5k +25%
-            }
-            elseif($sum > 7499 AND $sum < 10000 ){
-                $sum = self::percent_rate($sum, 30); //от 7.5k +30%
-            }
-            elseif($sum > 9999 AND $sum < 12500 ){
-                $sum = self::percent_rate($sum, 35); //от 10k +35%
-            }
-            elseif($sum > 12499 AND $sum < 15000){
-                $sum = self::percent_rate($sum, 40); //от 12.5k +40%
-            }
-            elseif($sum > 14999 AND $sum < 95000){
-                $sum = self::percent_rate($sum, 50); //от 15к +50%
-            }				
-            else {
-                $sum = $sum; // до 500 +0%
-            }
+            $check->getBonus($sum);
             // Обновляем данные и выдаем балик на аккаунт
             $user->bonus = $bal + $sum;
             $user->save();
@@ -129,12 +87,6 @@ class PaymentFreekassaController extends Controller
         return $_SERVER['REMOTE_ADDR'];
     }
 
-    public function percent_rate($number, $percent) 
-    {
-        // Подсчёт бонуса 
-        $number_percent = $number / 100 * $percent;
-        return $number + $number_percent;
-        
-    }
+
 
 }

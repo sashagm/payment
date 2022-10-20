@@ -7,8 +7,8 @@
 #### Установка
 
 - composer require sashagm/payment
-- php artisan vendor:publish --provider="Sashagm\Payment\Providers\PaymentServiceProvider"
-- php artisan migrate
+- php payment:install
+
 
 #### Поддержка платежных систем
 
@@ -16,53 +16,50 @@
 - [payeer](https://payeer.com/)
 - [webmoney](https://merchant.web.money/)
 
-#### Настройки для Freekassa
+#### Настройки
 
-- На сайте [freekassa](https://merchant.freekassa.ru/) необходимо создать наш мерчант. 
-Подключаем домен и проходим модерацию. 
-- URL заполняем:
+##### Валюты
+
+- Основная
+    - 643 Российский рубль (RUB) 
+- Webmoney 
+    - 840 Доллар США (USD)
+
+##### Маршруты
 
 | Название      | URL                                    | Метод         |
 | ------------- | -------------------------------------- | ------------- |
 | Обработчик    | [http://domain.com/payment/freekassa]  | POST          |
-| Успех         | [http://domain.com/payment/success]    | GET           |
-| Ошибка        | [http://domain.com/payment/error]      | GET           |
-
-- Настроить файл конфиг **config/payment.php**
-- Добавить конcтанты в файл **.env** 
-    * FREEKASSA_ID
-    * FREEKASSA_SECRET
-
-#### Настройки для Payeer
-
-- На сайте [payeer](https://payeer.com/) необходимо создать наш мерчант. 
-Подключаем домен и проходим модерацию. 
-- URL заполняем:
-
-| Название      | URL                                    | Метод         |
-| ------------- | -------------------------------------- | ------------- |
 | Обработчик    | [http://domain.com/payment/payeer]     | POST          |
-| Успех         | [http://domain.com/payment/success]    | GET           |
-| Ошибка        | [http://domain.com/payment/error]      | GET           |
-
-- Настроить файл конфиг **config/payment.php**
-- Добавить конcтанты в файл **.env** 
-    * PAYEER_ID
-    * PAYEER_SECRET
-
-#### Настройки для Webmoney
-
-- На сайте [webmoney](https://merchant.web.money/) необходимо создать наш мерчант. 
-Подключаем домен и проходим модерацию. 
-- URL заполняем:
-
-| Название      | URL                                    | Метод         |
-| ------------- | -------------------------------------- | ------------- |
 | Обработчик    | [http://domain.com/payment/webmoney]   | POST          |
 | Успех         | [http://domain.com/payment/success]    | GET           |
 | Ошибка        | [http://domain.com/payment/error]      | GET           |
 
-- Настроить файл конфиг **config/payment.php**
-- Добавить конcтанты в файл **.env** 
+
+##### Конфигурация
+
+- Настроить файл конфиг `config/payment.php`
+- Добавить необходимые настройки в файл `.env`
+    * FREEKASSA_ID
+    * FREEKASSA_SECRET
+    * PAYEER_ID
+    * PAYEER_SECRET
     * WEBMONEY_ID
     * WEBMONEY_SECRET
+
+
+#### Примечания
+- Если не работает обработчик?
+  - Так как работает на **Laravel** используется CSRF защита, необходимо исключить маршруты, добавив их URI в свойство `$except` посредника **VerifyCsrfToken**: 
+```
+  protected $except = [
+    'payment/*',
+  ];
+
+```
+- Webmoney не принимает российские рубли (RUB)?
+    - На данный момент Прекращена работа с RU кошельками! Конвертация суммы из RUB->USD в реальном времени и выставляем счёт в USD. 
+
+#### Лицензия
+
+Payment - это программное обеспечение с открытым исходным кодом, лицензированное по [MIT license](LICENSE.md ).

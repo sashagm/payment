@@ -36,9 +36,6 @@ class PaymentInfoCommand extends Command
         $user = User::where('id', $payment->user_id)->first();
         if($payment) {
             dd($payment);
-
-
-
         } else {  $this->info("Платёж $order_id не найден!"); }
 
     }

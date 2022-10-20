@@ -3,6 +3,8 @@
 namespace Sashagm\Payment\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
+use Sashagm\Payment\Providers\PaymentServiceProvider;
 
 class PaymentCommand extends Command
 {
@@ -18,7 +20,7 @@ class PaymentCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Установить пакет';
 
     /**
      * Execute the console command.
@@ -27,7 +29,28 @@ class PaymentCommand extends Command
      */
     public function handle()
     {
-        $ask = $this->ask('Начать установку?');
-        dd($ask);
+        $this->components->info('Установка пакета...');
+        $this->install();
+        $this->components->info('Установка завершена!');
+        
     }
+
+    protected function install(): void
+    {
+        Artisan::call('vendor:publish', [
+            '--provider' => PaymentServiceProvider::class,
+            '--force' => true,
+        ]);
+        $this->components->task('Сервис провайдер опубликован');
+
+        Artisan::call('migrate');
+        $this->components->task('Миграция выполнена');
+
+        Artisan::call('storage:link');
+        $this->components->task('Storage link создан');
+
+    }
+
+
+
 }

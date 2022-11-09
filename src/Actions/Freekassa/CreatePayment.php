@@ -13,14 +13,14 @@ class CreatePayment
     public function create(PaymentRequest $request)
     {
         // Конфиги и подписание хэша
-        $serverURL = config('payment.Freekassa_serverURL');
-        $merchant_id = config('payment.Freekassa_merchantId');
-        $secret_word = config('payment.Freekassa_secretWord');
-        $lang = config('payment.Freekassa_lang');
+        $serverURL = config('payment.freekassa.serverURL');
+        $merchant_id = config('payment.freekassa.merchantId');
+        $secret_word = config('payment.freekassa.secretWord');
+        $lang = config('payment.freekassa.lang');
         $order_amount = $request->sum;
-		$order_id = config('payment.Freekassa_orderId');
+		$order_id = config('payment.freekassa.orderId');
 		$order_AccountName = $request->name;
-		$currency = config('payment.Freekassa_currency');
+		$currency = config('payment.freekassa.currency');
 		$sigShop = md5($merchant_id.":".$order_amount.":".$secret_word.":".$currency.":".$order_id);
         // Создание заявки о платеже
         $user = User::where('name', $order_AccountName)->first();
@@ -40,15 +40,15 @@ class CreatePayment
     public function callback(CheckBonus $check,PaymentRequest $request)
     {
         // Получаем реквест с фрикассы
-        $merchant_id = config('payment.Freekassa_merchantId');
-        $secret_word = config('payment.Freekassa_secretWord');
+        $merchant_id = config('payment.freekassa.merchantId');
+        $secret_word = config('payment.freekassa.secretWord');
         $sum = $request->AMOUNT;
         $accName = $request->us_AccountName;
         $desc = $request->MERCHANT_ORDER_ID;
         $initid = $request->initid;
         $sigShop = md5($merchant_id.":".$sum.":".$secret_word.":".$desc);
         // Проверки
-        if (!in_array($this->getIP(), config('payment.Freekassa_serverIP'))) { abort(403); }
+        if (!in_array($this->getIP(), config('payment.freekassa.serverIP'))) { abort(403); }
         if ($sigShop != $request->SIGN) { abort(403);  }
         // Ищем пользователя 
         $user = User::where('name', $accName)->first();

@@ -1,6 +1,7 @@
 {
     "name": "sashagm/payment",
     "description": "Accepting payments for Loong Online/Blood and Soul game projects on the Laravel framework",
+    "keywords": ["laravel", "payment", "Loong Online", "Blood and Soul"],
     "license": "MIT",
     "autoload": {
         "psr-4": {
@@ -15,7 +16,8 @@
     "authors": [
         {
             "name": "Sashagm",
-            "email": "example@example.com"
+            "email": "example@example.com",
+            "homepage": "https://github.com/sashagm"
         }
     ],
     "minimum-stability": "stable",
@@ -23,7 +25,8 @@
         "php": "^7.3|^8.0",
         "illuminate/support": "^9.34",
         "illuminate/database": "^9.34",
-        "doctrine/dbal": "^3.4"
+        "doctrine/dbal": "^3.4",
+        "laravel/framework": "^9.36"
         
     },
     "require-dev": {

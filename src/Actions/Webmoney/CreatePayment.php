@@ -18,9 +18,9 @@ class CreatePayment
         $charger = $this->charger($request->sum);
         $order_AccountName = $request->name;
         $order_amount = $request->sum;
-        $serverURL = config('payment.Webmoney_serverURL');
-        $merchant_id = config('payment.Webmoney_merchantId');
-        $order_id = config('payment.Webmoney_orderId');
+        $serverURL = config('payment.webmoney.serverURL');
+        $merchant_id = config('payment.webmoney.merchantId');
+        $order_id = config('payment.webmoney.orderId');
         $desc = base64_encode('Пополнение счёта для '. $request->name);
         $arGetParams = array(
             "LMI_PAYEE_PURSE" => $merchant_id,
@@ -48,7 +48,7 @@ class CreatePayment
     public function callback(CheckBonus $check,PaymentRequest $request)
     {
         if ($request->LMI_PREREQUEST == 1){
-            if ($request->LMI_PAYEER_PURSE == config('payment.Webmoney_merchantId')){ echo "YES"; }
+            if ($request->LMI_PAYEER_PURSE == config('payment.webmoney.merchantId')){ echo "YES"; }
             else {
                $key = $request->LMI_PAYEE_PURSE.
                 $request->LMI_PAYMENT_AMOUNT.
@@ -57,7 +57,7 @@ class CreatePayment
                 $request->LMI_SYS_INVS_NO.
                 $request->LMI_SYS_TRANS_NO.
                 $request->LMI_SYS_TRANS_DATE.
-                config('payment.Webmoney_secretWord').
+                config('payment.webmoney.secretWord').
                 $request->LMI_PAYER_PURSE.
                 $request->LMI_PAYER_WM;
                 if (strtoupper(hash('sha256', $key)) != $request->LMI_HASH){ abort(403); }

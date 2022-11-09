@@ -12,12 +12,12 @@ class CreatePayment
 
     public function create(PaymentRequest $request)
     {
-        $m_shop = config('payment.PAYEER_shopId');
-        $m_orderid = config('payment.PAYEER_orderId');;
+        $m_shop = config('payment.payeer.shopId');
+        $m_orderid = config('payment.payeer.orderId');;
         $m_amount = number_format($request->sum, 2, '.', '');
-        $m_curr = config('payment.PAYEER_currency');;
+        $m_curr = config('payment.payeer.currency');;
         $m_desc = base64_encode('Пополнение счёта для '. $request->name);
-        $m_key = config('payment.PAYEER_secretWord');
+        $m_key = config('payment.payeer.secretWord');
         $order_AccountName = $request->name;
         $arHash = array(
 	            $m_shop,
@@ -47,16 +47,16 @@ class CreatePayment
         ]);
         $payment->save();
         // Редирект к платёжке payeer
-        return $urlTest = config('payment.PAYEER_serverURL').'?'.http_build_query($arGetParams);
+        return $urlTest = config('payment.payeer.serverURL').'?'.http_build_query($arGetParams);
     }
 
     public function callback(CheckBonus $check,PaymentRequest $request)
     {
         // Получаем реквест с пайер
-        if (!in_array($_SERVER['REMOTE_ADDR'], config('payment.PAYEER_serverIP'))) return;
+        if (!in_array($_SERVER['REMOTE_ADDR'], config('payment.payeer.serverIP'))) return;
         if (isset($request->m_operation_id) && isset($request->m_sign))
         {
-            $m_key = config('payment.PAYEER_secretWord');
+            $m_key = config('payment.payeer.secretWord');
             $arHash = array(
                 $request->m_operation_id,
                 $request->m_operation_ps,
@@ -71,7 +71,7 @@ class CreatePayment
             );
             // Проверки
             if (isset($request->m_params)) { $arHash[] = $request->m_params; }
-            if ($request->m_shop != config('payment.PAYEER_shopId')){  abort(403); }
+            if ($request->m_shop != config('payment.payeer.shopId')){  abort(403); }
             $arHash[] = $m_key;
             $sign_hash = strtoupper(hash('sha256', implode(':', $arHash)));
             $sum =$request->m_amount;

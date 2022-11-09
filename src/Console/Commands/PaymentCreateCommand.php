@@ -15,7 +15,7 @@ class PaymentCreateCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'payment:create {user} {sum} ';
+    protected $signature = 'payment:create {user} {sum}';
 
     /**
      * The console command description.

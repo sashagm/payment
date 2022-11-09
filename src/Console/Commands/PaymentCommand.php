@@ -41,13 +41,13 @@ class PaymentCommand extends Command
             '--provider' => PaymentServiceProvider::class,
             '--force' => true,
         ]);
-        $this->components->task('Сервис провайдер опубликован');
+        $this->components->info('Сервис провайдер опубликован...');
 
         Artisan::call('migrate');
-        $this->components->task('Миграция выполнена');
+        $this->components->info('Миграции выполнены...');
 
         Artisan::call('storage:link');
-        $this->components->task('Storage link создан');
+        $this->components->info('Storage link создан...');
 
     }
 

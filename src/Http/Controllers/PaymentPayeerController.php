@@ -14,7 +14,7 @@ class PaymentPayeerController extends Controller
 {
     public function payeerForm(ActiveService $service, CreatePayment $pay, PaymentRequest $request)
     {
-        $service->active(config('payment.PAYEER_active'));
+        $service->active(config('payment.payeer.active'));
         return redirect($pay->create($request));
     }
 

@@ -14,7 +14,7 @@ class PaymentFreekassaController extends Controller
 {
     public function freekassaForm(ActiveService $service, CreatePayment $pay, PaymentRequest $request)
     {
-        $service->active(config('payment.Freekassa_active'));
+        $service->active(config('payment.freekassa.active'));
         return redirect($pay->create($request));
     }
 

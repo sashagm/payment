@@ -1,30 +1,37 @@
 <?php
 
 return [
-    "isService"             => true,
-    "minSum"      => 25,
 
-    "Freekassa_active"       => false,
-    "Freekassa_serverURL"   =>  'https://pay.freekassa.ru/',
-    "Freekassa_merchantId"  =>  env('FREEKASSA_ID', NULL),
-    "Freekassa_secretWord"  =>  env('FREEKASSA_SECRET', NULL),
-    "Freekassa_lang"        =>  'ru',
-    "Freekassa_currency"    =>  'RUB',
-    "Freekassa_orderId"     =>  time(),
-    'Freekassa_serverIP'    =>  array('127.0.0.1','168.119.157.136', '168.119.60.227', '138.201.88.124', '178.154.197.79'),
+    "general"  => [
+        "isService"     => true,
+        "minSum"        => 25,
+    ], 
+    "freekassa" => [
+        "active"        => true,
+        "serverURL"     => "https://pay.freekassa.ru/",
+        "merchantId"    => env('FREEKASSA_ID', NULL),
+        "secretWord"    => env('FREEKASSA_SECRET', NULL),
+        "lang"          => "ru",
+        "currency"      => "RUB",
+        "orderId"       => time(),
+        "serverIP"      => array('168.119.157.136', '168.119.60.227', '138.201.88.124', '178.154.197.79'),
+    ],
+    "payeer" => [
+        "active"        => true,
+        "serverURL"     => "https://payeer.com/merchant/",
+        "orderId"       => time(),
+        "shopId"        => env('PAYEER_ID', NULL),
+        "secretWord"    => env('PAYEER_SECRET', NULL),
+        "currency"      => "RUB",
+        "serverIP"      => array('185.71.65.92', '185.71.65.189', '149.202.17.210'),
+    ],
+    "webmoney" => [
+        "active"        => true,
+        "serverURL"     => "https://merchant.webmoney.ru/lmi/payment_utf.asp",
+        "orderId"       => time(),
+        "merchantId"    => env('WEBMONEY_ID', NULL),
+        "secretWord"    => env('WEBMONEY_SECRET', NULL),
+        "secretWord20"  => env('WEBMONEY_SECRET20', NULL),
+    ],
 
-    "PAYEER_active"         => true,
-    "PAYEER_serverURL"      =>  "https://payeer.com/merchant/",
-    "PAYEER_orderId"        =>  time(),
-    "PAYEER_shopId"         =>  env('PAYEER_ID', NULL),
-    "PAYEER_secretWord"     =>  env('PAYEER_SECRET', NULL),
-    "PAYEER_currency"       =>  'RUB',
-    "PAYEER_serverIP"       =>  array('185.71.65.92', '185.71.65.189', '149.202.17.210'),
-
-    "Webmoney_active"       => false,
-    "Webmoney_serverURL"    =>  "https://merchant.webmoney.ru/lmi/payment_utf.asp",
-    "Webmoney_orderId"      =>  time(),
-    "Webmoney_merchantId"       =>  env('WEBMONEY_ID', NULL),
-    "Webmoney_secretWord"     =>  env('WEBMONEY_SECRET', NULL),
-    "Webmoney_secretWord20"     =>  env('WEBMONEY_SECRET20', NULL),
 ];

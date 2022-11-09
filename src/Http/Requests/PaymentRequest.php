@@ -15,7 +15,7 @@ class PaymentRequest extends FormRequest
     {
         return [
             'name' => 'required|string|exists:users|max:255',
-            'sum' => 'required|numeric|min:'. config('payment.Freekassa_minSum'),
+            'sum' => 'required|numeric|min:'. config('payment.general.minSum'),
         ];
     }
 
@@ -31,8 +31,8 @@ class PaymentRequest extends FormRequest
             'name.exists'       => 'Указанный логин не найден.',
             'name.string'       => 'Поле логин должен быть строкой.',
             'sum.required'      => 'Вы не указали сумму.',
-            'sum.numeric'       => 'Поле сумма должно быть число.',
-            'sum.min'           => 'Минимальная сумма пополнения: ' . config('payment.Freekassa_minSum'),
+            'sum.numeric'       => 'Поле сумма должно быть числом.',
+            'sum.min'           => 'Минимальная сумма пополнения: ' . config('payment.general.minSum'). " RUB.",
         ];        
     }
 

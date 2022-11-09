@@ -7,7 +7,7 @@
 #### Установка
 
 - composer require sashagm/payment
-- php payment:install
+- php artisan payment:install
 
 
 #### Поддержка платежных систем

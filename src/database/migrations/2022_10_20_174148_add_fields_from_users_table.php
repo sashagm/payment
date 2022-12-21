@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
 
-        if (Schema::hasTable('users')) {
+        if (Schema::hasTable(config('payment.general.userTable'))) {
             
-            if (!Schema::hasColumn('users', 'bonus')) {
-                Schema::table('users', function (Blueprint $table) {
+            if (!Schema::hasColumn(config('payment.general.userTable'), 'bonus')) {
+                Schema::table(config('payment.general.userTable'), function (Blueprint $table) {
                     $table->decimal('bonus', $precision = 10, $scale = 2)->default(0.00);
                 });
             }            
@@ -34,7 +34,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table(config('payment.general.userTable'), function (Blueprint $table) {
             $table->dropColumn('bonus');
         });
     }

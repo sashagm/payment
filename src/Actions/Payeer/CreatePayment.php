@@ -13,9 +13,9 @@ class CreatePayment
     public function create(PaymentRequest $request)
     {
         $m_shop = config('payment.payeer.shopId');
-        $m_orderid = config('payment.payeer.orderId');;
+        $m_orderid = config('payment.payeer.orderId');
         $m_amount = number_format($request->sum, 2, '.', '');
-        $m_curr = config('payment.payeer.currency');;
+        $m_curr = config('payment.payeer.currency');
         $m_desc = base64_encode('Пополнение счёта для '. $request->name);
         $m_key = config('payment.payeer.secretWord');
         $order_AccountName = $request->name;

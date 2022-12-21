@@ -15,7 +15,7 @@ class PaymentWebmoneyController extends Controller
     public function webmoneyForm(ActiveService $service, CreatePayment $pay, PaymentRequest $request)
     {
         $service->active(config('payment.webmoney.active'));
-        return redirect($pay->create($request));
+        $pay->create($request);
     }
 
     public function webmoney(CreatePayment $pay, CheckBonus $check, PaymentRequest $request)

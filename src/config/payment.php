@@ -5,6 +5,7 @@ return [
     "general"  => [
         "isService"     => true,
         "minSum"        => 25,
+        "userTable"     => "user"
     ], 
     "freekassa" => [
         "active"        => true,
@@ -32,6 +33,7 @@ return [
         "merchantId"    => env('WEBMONEY_ID', NULL),
         "secretWord"    => env('WEBMONEY_SECRET', NULL),
         "secretWord20"  => env('WEBMONEY_SECRET20', NULL),
+        "recomend"      => 1000
     ],
 
 ];

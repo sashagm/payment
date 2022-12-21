@@ -6,6 +6,7 @@ use App\Models\User;
 use Sashagm\Payment\Models\Payment;
 use Sashagm\Payment\Actions\CheckBonus;
 use Sashagm\Payment\Http\Requests\PaymentRequest;
+use Spatie\FlareClient\Http\Response;
 
 class CreatePayment
 {
@@ -21,15 +22,18 @@ class CreatePayment
         $serverURL = config('payment.webmoney.serverURL');
         $merchant_id = config('payment.webmoney.merchantId');
         $order_id = config('payment.webmoney.orderId');
-        $desc = base64_encode('Пополнение счёта для '. $request->name);
-        $arGetParams = array(
+        $desc = 'Пополнение счёта для '. $request->name;
+        /**$arGetParams = array(
             "LMI_PAYEE_PURSE" => $merchant_id,
             "LMI_PAYMENT_AMOUNT" => $charger,
             "LMI_PAYMENT_DESC"  => $desc,
             "LMI_PAYMENT_NO"   => $order_id,
             "LMI_SIM_MODE" => 0,
             "LMI_LANG"  => 'ru'
-        );
+        ); */
+        
+        //if ($order_amount < 1000) { abort(403, "Необходима сумма от 1000");}
+
         // Создание заявки о платеже
         $user = User::where('name', $order_AccountName)->first();
         $payment = Payment::create([
@@ -41,7 +45,30 @@ class CreatePayment
         ]);
         $payment->save();
         // Редирект к платёжке вебмоней, временное решение
-        return $urlTest = "http://0pi.ru/post.php?url=https://merchant.webmoney.ru/lmi/payment.asp?at=authtype_8[POST]".http_build_query($arGetParams);
+
+
+echo '
+<h1>Пополнить счёт через Webmoney</h1>
+<h3>Рекомендованная сумма пополнения от 1000 рублей!!!</h3>
+<form method="POST" action="https://merchant.webmoney.ru/lmi/payment_utf.asp" accept-charset="utf-8">
+    <input type="hidden" name="LMI_PAYMENT_AMOUNT" value="'.$charger.'">
+    <input type="hidden" name="LMI_PAYMENT_DESC" value="'.$desc.'">
+    <input type="hidden" name="LMI_PAYMENT_NO" value="'.$order_id.'">
+    <input type="hidden" name="LMI_PAYEE_PURSE" value="'.$merchant_id.'">
+    <input type="hidden" name="LMI_SIM_MODE" value="0">
+    <input type="hidden" name="LMI_SUCCESS_METHOD" value="2">
+    <input type="hidden" name="LMI_FAIL_METHOD" value="2">
+    <input type="hidden" name="FIELD_1" value="VALUE_1">
+    <input type="hidden" name="FIELD_2" value="VALUE_2">
+    <input type="hidden" name="FIELD_N" value="VALUE_N">
+    <button type="submit" class="btn btn-slide btn-slide-info mt-4"
+                                        class="dl_btn">Оплатить '.$charger.' $</button>
+  </form>';
+
+
+
+
+        //return $urlTest = "https://merchant.webmoney.ru/lmi/payment.asp?at=authtype_8";
 
     }
 

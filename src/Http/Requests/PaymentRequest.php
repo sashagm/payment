@@ -14,7 +14,7 @@ class PaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|exists:users|max:255',
+            'name' => 'required|string|exists:'.config('payment.general.userTable').'|max:255',
             'sum' => 'required|numeric|min:'. config('payment.general.minSum'),
         ];
     }

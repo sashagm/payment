@@ -449,6 +449,8 @@
                                 role="tab" aria-controls="v-pills-profile" aria-selected="false">Payeer</a>
                             <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-messages"
                                 role="tab" aria-controls="v-pills-messages" aria-selected="false">Webmoney</a>
+                            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-m"
+                                role="tab" aria-controls="v-pills-messages" aria-selected="false">Litekassa</a>
                         </div>
                     </div>
                     <div class="col-9">
@@ -473,12 +475,12 @@
 
                                     <?php if (Auth::check()) {
                                         echo '
-                                              <div class="form-group">
-                                              <label for="checkbox">Выбрать аккаунт</label><br>  
-                                            <input type="checkbox" name="checkbox" value="" item_cat="' .
+                                                                                  <div class="form-group">
+                                                                                  <label for="checkbox">Выбрать аккаунт</label><br>  
+                                                                                <input type="checkbox" name="checkbox" value="" item_cat="' .
                                             Auth::check()->name .
                                             '"> Мой аккаунт
-                                              </div><br>';
+                                                                                  </div><br>';
                                     } ?>
 
 
@@ -538,12 +540,12 @@
 
                                     <?php if (Auth::check()) {
                                         echo '
-                                              <div class="form-group">
-                                              <label for="checkbox">Выбрать аккаунт</label><br>  
-                                            <input type="checkbox" name="checkbox" value="" item_cat="' .
+                                                                                  <div class="form-group">
+                                                                                  <label for="checkbox">Выбрать аккаунт</label><br>  
+                                                                                <input type="checkbox" name="checkbox" value="" item_cat="' .
                                             Auth::check()->name .
                                             '"> Мой аккаунт
-                                              </div><br>';
+                                                                                  </div><br>';
                                     } ?>
 
 
@@ -595,18 +597,18 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="sum">Сумма</label>
-                                        <input class="form-control" id="text" name="sum" placeholder="Сумма"
-                                            class="main_input" type="number" value="25">
+                                        <input class="form-control" id="text" name="sum"
+                                            placeholder="Сумма" class="main_input" type="number" value="25">
                                     </div>
 
                                     <?php if (Auth::check()) {
                                         echo '
-                                              <div class="form-group">
-                                              <label for="checkbox">Выбрать аккаунт</label><br>  
-                                            <input type="checkbox" name="checkbox" value="" item_cat="' .
+                                                                                  <div class="form-group">
+                                                                                  <label for="checkbox">Выбрать аккаунт</label><br>  
+                                                                                <input type="checkbox" name="checkbox" value="" item_cat="' .
                                             Auth::check()->name .
                                             '"> Мой аккаунт
-                                              </div><br>';
+                                                                                  </div><br>';
                                     } ?>
 
 
@@ -643,15 +645,92 @@
                                         class="dl_btn">Пополнить с Webmoney</button>
 
                                 </form>
-                                
 
-                              
-                              
-                              
-                              
-                              </div>
+
+
+
+
+
+                            </div>
+
+                        <div class="tab-pane fade" id="v-pills-m" role="tabpanel"
+                                aria-labelledby="v-pills-messages-tab">
+                                <h3> Пополнить через Litekassa </h3>
+                                <form class="mt-4" action="/payment/litekassa_form" method="POST">
+                                    @csrf
+                                    <div class="form-group">
+                                        <input name="action" value="fk_go" class="main_input" type="hidden">
+                                        <label for="exampleInputEmail1">Логин</label>
+                                        <input class="form-control" name="name" placeholder="Логин"
+                                            class="main_input" type="text" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sum">Сумма</label>
+                                        <input class="form-control" id="text" name="sum"
+                                            placeholder="Сумма" class="main_input" type="number" value="25">
+                                    </div>
+
+                                    <?php if (Auth::check()) {
+                                        echo '
+                                                                                  <div class="form-group">
+                                                                                  <label for="checkbox">Выбрать аккаунт</label><br>  
+                                                                                <input type="checkbox" name="checkbox" value="" item_cat="' .
+                                            Auth::check()->name .
+                                            '"> Мой аккаунт
+                                                                                  </div><br>';
+                                    } ?>
+
+
+                                    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.js"></script>
+                                    <script>
+                                        $(document).on('click', 'input[name="checkbox"]', function() {
+                                                $('input[name="account"]').val(
+                                                    $('input[name="checkbox"]:checked')
+                                                    .map(function() {
+                                                        return this.getAttribute('item_cat')
+
+                                                    })
+
+                                                    .get()
+                                                );
+
+                                            }
+
+
+                                        );
+                                    </script>
+
+                                    <div class="col-md-4">Вы получите<br></div>
+                                    <div class="col-md-5" id="result"> <i class="las la-gem"></i></div>
+                                    <div class="col-md-3"><br></div>
+
+                                    <br>
+
+
+
+
+
+                                    <button type="submit" class="btn btn-slide btn-slide-info mt-4"
+                                        class="dl_btn">Пополнить с Litekassa</button>
+
+                                </form>
+
+
+
+
+
+
+
+
+                            </div>
+
+
+
+
+
                             <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
                                 aria-labelledby="v-pills-settings-tab">...</div>
+
                         </div>
                     </div>
                 </div>

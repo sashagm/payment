@@ -5,7 +5,7 @@ return [
     "general"  => [
         "isService"     => true,
         "minSum"        => 25,
-        "userTable"     => "user"
+        "userTable"     => "users"
     ], 
     "freekassa" => [
         "active"        => true,
@@ -34,6 +34,13 @@ return [
         "secretWord"    => env('WEBMONEY_SECRET', NULL),
         "secretWord20"  => env('WEBMONEY_SECRET20', NULL),
         "recomend"      => 1000
+    ],
+    "litekassa" => [
+        "active"        => true,
+        "serverURL"     => "https://www.lite-kassa.ru/pay",
+        "orderId"       => time(),
+        "merchantId"    => env('LITEKASSA_ID', NULL),
+        "secretWord"    => env('LITEKASSA_SECRET', NULL),
     ],
 
 ];

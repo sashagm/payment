@@ -15,6 +15,7 @@
 - [freekassa](https://merchant.freekassa.ru/)
 - [payeer](https://payeer.com/)
 - [webmoney](https://merchant.web.money/)
+- [litekassa](https://www.lite-kassa.ru/)
 
 #### Настройки
 
@@ -32,8 +33,10 @@
 | Обработчик    | [http://domain.com/payment/freekassa]  | POST          |
 | Обработчик    | [http://domain.com/payment/payeer]     | POST          |
 | Обработчик    | [http://domain.com/payment/webmoney]   | POST          |
+| Обработчик    | [http://domain.com/payment/litekassa]  | POST          |
 | Успех         | [http://domain.com/payment/success]    | GET           |
 | Ошибка        | [http://domain.com/payment/error]      | GET           |
+
 
 
 ##### Конфигурация
@@ -46,6 +49,8 @@
     * PAYEER_SECRET
     * WEBMONEY_ID
     * WEBMONEY_SECRET
+    * LITEKASSA_ID
+    * LITEKASSA__SECRET    
 
 
 #### Примечания

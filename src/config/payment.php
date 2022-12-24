@@ -42,5 +42,12 @@ return [
         "merchantId"    => env('LITEKASSA_ID', NULL),
         "secretWord"    => env('LITEKASSA_SECRET', NULL),
     ],
+    "payok" =>[
+        "active"        => true,
+        "serverURL"     => "https://payok.io/pay",
+        "orderId"       => time(),
+        "merchantId"    => env('PAYOK_ID', NULL),
+        "secretWord"    => env('PAYOK_SECRET', NULL), 
+    ],
 
 ];

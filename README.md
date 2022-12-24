@@ -16,6 +16,7 @@
 - [payeer](https://payeer.com/)
 - [webmoney](https://merchant.web.money/)
 - [litekassa](https://www.lite-kassa.ru/)
+- [payok](https://payok.io/)
 
 #### Настройки
 
@@ -34,6 +35,7 @@
 | Обработчик    | [http://domain.com/payment/payeer]     | POST          |
 | Обработчик    | [http://domain.com/payment/webmoney]   | POST          |
 | Обработчик    | [http://domain.com/payment/litekassa]  | POST          |
+| Обработчик    | [http://domain.com/payment/payok]      | POST          |
 | Успех         | [http://domain.com/payment/success]    | GET           |
 | Ошибка        | [http://domain.com/payment/error]      | GET           |
 
@@ -50,7 +52,9 @@
     * WEBMONEY_ID
     * WEBMONEY_SECRET
     * LITEKASSA_ID
-    * LITEKASSA__SECRET    
+    * LITEKASSA_SECRET  
+    * PAYOK_ID
+    * PAYOK_SECRET       
 
 
 #### Примечания
